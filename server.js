@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const uri = `mongodb+srv://lovescript:${encodeURIComponent('iV9b6Cld90xllgZM')}@cluster0.gamjxp1.mongodb.net/analysis?retryWrites=true&w=majority`;
 // Connect to MongoDB using Mongoose
-
+app.use(express.json());
 mongoose.connect(uri, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
