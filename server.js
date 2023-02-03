@@ -17,7 +17,8 @@ mongoose.connect(uri, {
 const userDataSchema = new mongoose.Schema({
 	id: String,
 	profile: String,
-	rating: String
+	result: String,
+	feedback: String
 });
 
 // Create a model based on the schema
@@ -42,6 +43,21 @@ app.post('/users', async (req, res) => {
 	}
 });
 
+app.put('/users/:id', async (req, res) => {
+	try {
+		const user = await User.findByIdAndUpdate(req.params.id, {
+			feedback: req.body.feedback
+		}, {
+			new: true
+		});
+		if (!user) {
+			return res.status(404).send();
+		}
+		res.send(user);
+	} catch (err) {
+		res.status(500).send(err);
+	}
+});
 // Start the server
 app.listen(PORT, () => {
 	console.log(`Server started on port ${PORT}`);
